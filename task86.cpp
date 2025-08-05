@@ -1,26 +1,34 @@
 /*
-Given an integer array nums of size n, return the number with the value closest to 0 in nums. If there are multiple answers, return the number with the largest value.
+You are given a string s consisting of lowercase English letters.
+
+Your task is to find the maximum difference diff = freq(a1) - freq(a2) between the frequency of characters a1 and a2 in the string such that:
+
+    - a1 has an odd frequency in the string.
+    - a2 has an even frequency in the string.
+
+Return this maximum difference.
 */
 
 class Solution {
 public:
-    int findClosestNumber(vector<int>& nums) {
-        int closestNum = nums[0];
+    int maxDifference(string s) {
+        unordered_map<char, int> a; 
 
-        for (int i = 1; i < nums.size(); i++) {
-            int currNum = nums[i];
+        for (char i: s) {
+            if (a.find(i) != a.end()) a[i]++;
+            else a[i] = 1;
+        }
 
-            int currDistance = abs(currNum);
-            int closestDistance = abs(closestNum);
+        int max_frequency = 0, min_frequency = INT_MAX;
 
-            if (currDistance < closestDistance) {
-                closestNum = currNum;
-            }
-            else if (currDistance == closestDistance) {
-                closestNum = max(currNum, closestNum);
+        for (const auto& i: a) {
+            if ((i.second & 1) == 0) {
+                if (i.second < min_frequency) min_frequency = i.second;
+            } else {
+                if (i.second > max_frequency) max_frequency = i.second;
             }
         }
 
-        return closestNum;
+        return max_frequency - min_frequency;
     }
 };
