@@ -15,19 +15,17 @@ public:
             else break;
         }
         
-        int d = nums.size();
-        
+        int b = nums.size();
+        int c = nums.size()-a.size();
+        int d = c / 3;
+        int e = c % 3;
+
         int count = 0;
         
         if (a.size() == nums.size()) count = 0;
         else {
-            while (d > 0) {
-                if (d > a.size()) {
-                    if (d > 3) d -= 3;
-                    else d -= d;
-                } else break;
-                count++;
-            }
+            count += d;
+            if (e > 0) count++;
         }
         
         return count;
