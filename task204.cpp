@@ -15,7 +15,7 @@ public:
         vector<bool> answer;
         for (const int& i: nums) {
             x = (2*x+i) % 5;
-            if (x % 5 == 0) answer.push_back(true);
+            if (x == 0) answer.push_back(true);
             else answer.push_back(false);
         }
 
