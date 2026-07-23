@@ -34,19 +34,17 @@ public:
 class Solution(object):
     def __init__(self):
         self.variants = []
-        self.n = 0
 
     def func(self, nums, variant=[]):
+        if len(nums) == 0:
+            self.variants.append(variant)
+            return
+    
         for i in range(len(nums)):
             next_nums = [nums[j] for j in range(len(nums)) if i != j]
             self.func(next_nums, variant+[nums[i]])
 
-        if len(variant) == self.n:
-            self.variants.append(variant)
-
-    
     def permute(self, nums):
-        self.n = len(nums)
         self.func(list(nums))
 
         return self.variants
