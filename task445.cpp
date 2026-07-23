@@ -1,13 +1,12 @@
-/*
-Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
-*/
-
 class Solution {
 public:
     vector<vector<int>> variants = {};
-    int n = 0;
 
     void func(vector<int> nums, vector<int> variant) {
+        if (nums.size() == 0) {
+            variants.push_back(variant);
+        }
+
         for (int i = 0; i < nums.size(); ++i) {
             vector<int> next_nums = {};
             for (int j = 0; j < nums.size(); ++j) {
@@ -15,19 +14,14 @@ public:
                     next_nums.push_back(nums[j]);
             }
 
-            vector<int> new_variant = variant;
-            new_variant.push_back(nums[i]);
-            func(next_nums, new_variant);
+            variant.push_back(nums[i]);
+            func(next_nums, variant);
+            variant.pop_back();
         }
-
-        if (variant.size() == n)
-            variants.push_back(variant);
     }
 
     vector<vector<int>> permute(vector<int>& nums) {
         vector<int> variant;
-
-        n = nums.size();
 
         func(nums, variant);
 
@@ -56,7 +50,5 @@ class Solution(object):
         self.func(list(nums))
 
         return self.variants
-
-        
 
 */
