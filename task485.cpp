@@ -1,24 +1,23 @@
 /*
-Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+Given the root of an n-ary tree, return the preorder traversal of its nodes' values.
 */
 
 class Solution {
 public:
-    vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        map<vector<int>, vector<string>> m;
+    void func(Node* node, vector<int>& result) {
+        if (node == nullptr) return;
 
-        for (const string& i: strs) {
-            vector<int> letters(26, 0);
+        result.push_back(node->val);
 
-            for (const char& j: i) ++letters[j-'a'];
-
-            m[letters].push_back(i);
+        for (Node* child: node->children) {
+            func(child, result);
         }
+    }
+    
+    vector<int> preorder(Node* root) {
+        vector<int> result;
 
-        vector<vector<string>> result;
-        for (const auto& [key, value] : m) {
-            result.push_back(value);
-        }   
+        func(root, result);
 
         return result;
     }
